@@ -30,7 +30,8 @@ class MailConfig {
 
     public static MailConfig getInstance() throws IOException {
         if (mailConfig == null) {
-            return new MailConfig();
+            mailConfig = new MailConfig();
+            return mailConfig;
         }
         return mailConfig;
     }
