@@ -5,6 +5,8 @@ import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.io.IOException;
 import java.sql.Timestamp;
@@ -53,12 +55,20 @@ public class TestMailDelivery extends WebDriverInitializer {
     @Test
     public void testResponseLetter() {
         driver.get("http://gmail.com/");
-        driver.findElement(By.id("identifierId"))
-                .sendKeys(MailConfig.getAccountName("loginGmail") + "@gmail.com", Keys.TAB, Keys.TAB, Keys.TAB, Keys.ENTER);
-        driver.findElement(By.xpath("//*[@id=\"aso_search_form_anchor\"]/button[2]")).click();
-        driver.findElement(By.id(":nm")).sendKeys("Test - 3", Keys.ENTER);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(":1")));
-        driver.findElement(By.id(":xf")).click();
+        WebElement loginField = driver.findElement(By.id("identifierId"));
+        loginField.sendKeys(MailConfig.getAccountName("loginGmail") + "@gmail.com");
+        driver.findElement(By.id("identifierNext")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[class=\".gb_uf > svg\"]")));
+        Actions action = new Actions(driver);
+        WebElement searchButton = driver.findElement(By.cssSelector("[class=\".gb_uf > svg\"]"));
+        action.moveToElement(searchButton).click();
+        WebElement searchSubject = driver.findElement(By.id(":nm"));
+        searchSubject.click();
+        searchSubject.sendKeys("Test - 3", Keys.ENTER);
+        WebElement choiceLetter = driver.findElement(By.id(":x5"));
+        choiceLetter.click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(":sy")));
+        driver.findElement(By.id(":sy")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id(":wm")));
         driver.findElement(By.id(":wm")).sendKeys(Keys.TAB, Keys.ENTER);
     }
