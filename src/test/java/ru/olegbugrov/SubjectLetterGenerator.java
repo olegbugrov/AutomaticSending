@@ -7,7 +7,7 @@ class SubjectLetterGenerator {
 
     SubjectLetterGenerator() {
         for (int i = 0; i < NUM_LETTERS; i++) {
-            subject[i] = "Test - " + i;
+            subject[i] = "Verification of sending letters - " + i;
         }
     }
 

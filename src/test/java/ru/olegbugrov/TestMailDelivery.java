@@ -45,7 +45,7 @@ public class TestMailDelivery extends WebDriverInitializer {
         driver.findElement(By.name("Subject"))
                 .sendKeys(letterGenerator.getSubjectByIdx(idx));
         driver.findElement(By.name("Subject")).sendKeys(Keys.TAB, Keys.TAB, new Timestamp(System.currentTimeMillis()).toString());
-        String selectCtrlEnter = Keys.chord(Keys.CONTROL, Keys.ENTER);
+//        String selectCtrlEnter = Keys.chord(Keys.CONTROL, Keys.ENTER);
         driver.findElement(By.cssSelector("[class=\"button2 button2_base button2_primary button2_compact button2_hover-support js-shortcut\"]"))
                 .click();
         Thread.sleep(30000);
@@ -58,18 +58,13 @@ public class TestMailDelivery extends WebDriverInitializer {
         WebElement loginField = driver.findElement(By.id("identifierId"));
         loginField.sendKeys(MailConfig.getAccountName("loginGmail") + "@gmail.com");
         driver.findElement(By.id("identifierNext")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.cssSelector("[class=\".gb_uf > svg\"]")));
-        Actions action = new Actions(driver);
-        WebElement searchButton = driver.findElement(By.cssSelector("[class=\".gb_uf > svg\"]"));
-        action.moveToElement(searchButton).click();
-        WebElement searchSubject = driver.findElement(By.id(":nm"));
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//button[@class='gb_uf']//*[local-name()='svg']")));
+        driver.findElement(By.xpath("//button[@class='gb_uf aop']//*[local-name()='svg']")).click();
+        WebElement searchSubject = driver.findElement(By.xpath("//input[@class='ZH nr aQd']"));
         searchSubject.click();
-        searchSubject.sendKeys("Test - 3", Keys.ENTER);
-        WebElement choiceLetter = driver.findElement(By.id(":x5"));
-        choiceLetter.click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(":sy")));
-        driver.findElement(By.id(":sy")).click();
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.id(":wm")));
-        driver.findElement(By.id(":wm")).sendKeys(Keys.TAB, Keys.ENTER);
+        searchSubject.sendKeys("Verification of sending letters - 4");
+        driver.findElement(By.xpath("//div[@id=':nw']")).click();
+        driver.findElement(By.xpath("//body[1]/div[7]/div[3]/div[1]/div[2]/div[1]/div[2]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[1]/div[2]")).click();
+        driver.findElement(By.xpath("//span[@class='ams bkH']")).click();
     }
 }
